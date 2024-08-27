@@ -1,0 +1,43 @@
+name: Delete Tags
+
+on:
+  workflow_dispatch:
+
+jobs:
+  delete_tags:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install gh
+
+      - name: Authenticate with GitHub
+        run: |
+          echo "${{ secrets.GH_TOKEN }}" | gh auth login --with-token
+
+      - name: Fetch all tags
+        run: |
+          git fetch --tags
+
+      - name: List and Delete Tags
+        run: |
+          echo "Fetching tags starting with 'dev'"
+          dev_tags=$(git tag -l 'dev*')
+          
+          if [ -z "$dev_tags" ]; then
+            echo "No tags found starting with 'dev'"
+            exit 0
+          fi
+
+          for tag in $dev_tags; do
+            echo "Deleting tag $tag"
+            git push --delete origin "$tag" || echo "Failed to delete remote tag $tag"
+            git tag -d "$tag" || echo "Failed to delete local tag $tag"
+          done
