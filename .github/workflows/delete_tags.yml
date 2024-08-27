@@ -2,6 +2,15 @@ name: Delete Tags
 
 on:
   workflow_dispatch:
+    inputs:
+      tag_type:
+        type: choice
+        description: Select the tag type to remove, It will remove all tags of selected type
+        options: 
+        - dev
+        - qa
+        - qa2
+        - tics
 
 jobs:
   delete_tags:
@@ -28,7 +37,7 @@ jobs:
 
       - name: List and Delete Tags
         run: |
-          echo "Fetching tags starting with 'dev'"
+          echo "Fetching tags starting with ${{ github.event.inputs.tag_type }}"
           dev_tags=$(git tag -l 'dev*')
           
           if [ -z "$dev_tags" ]; then
