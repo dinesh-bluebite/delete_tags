@@ -38,15 +38,15 @@ jobs:
       - name: List and Delete Tags
         run: |
           echo "Fetching tags starting with ${{ github.event.inputs.tag_type }}"
-          dev_tags=$(git tag -l 'dev*')
+          tags=$(git tag -l '${{ github.event.inputs.tag_type }}*')
           
-          if [ -z "$dev_tags" ]; then
-            echo "No tags found starting with 'dev'"
+          if [ -z "$tags" ]; then
+            echo "No tags found starting with '${{ github.event.inputs.tag_type }}'"
             exit 0
           fi
 
-          for tag in $dev_tags; do
+          for tag in $tags; do
             echo "Deleting tag $tag"
-            git push --delete origin "$tag" || echo "Failed to delete remote tag $tag"
-            git tag -d "$tag" || echo "Failed to delete local tag $tag"
+            #git push --delete origin "$tag" || echo "Failed to delete remote tag $tag"
+            #git tag -d "$tag" || echo "Failed to delete local tag $tag"
           done
