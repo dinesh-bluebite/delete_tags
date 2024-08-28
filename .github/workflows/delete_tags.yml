@@ -2,16 +2,8 @@ name: Delete Tags
 
 on:
   workflow_dispatch:
-    inputs:
-      tag_type:
-        type: choice
-        description: Select the tag type to remove, It will remove all tags of selected type
-        options: 
-        - dev
-        - qa
-        - qa2
-        - tics
-
+  schedule:
+    - cron: '*/2 * * * *'
 jobs:
   delete_tags:
     runs-on: ubuntu-latest
