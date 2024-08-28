@@ -1,9 +1,8 @@
 name: Delete Tags
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '*/2 * * * *'
+    - cron: '* * * * *'
 jobs:
   delete_tags:
     runs-on: ubuntu-latest
