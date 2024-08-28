@@ -1,6 +1,7 @@
 name: Delete Tags
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
 jobs:
@@ -20,7 +21,7 @@ jobs:
 
       - name: Authenticate with GitHub
         run: |
-          echo "${{ secrets.GH_TOKEN }}" | gh auth login --with-token
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
       - name: Fetch all tags
         run: |
