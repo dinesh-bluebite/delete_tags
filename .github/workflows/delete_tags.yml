@@ -2,7 +2,7 @@ name: Delete Tags
 
 on:
   schedule:
-    - cron: '* * * * *'
+    - cron: '*/5 * * * *'
 jobs:
   delete_tags:
     runs-on: ubuntu-latest
