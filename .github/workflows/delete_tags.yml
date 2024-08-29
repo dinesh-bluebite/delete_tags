@@ -1,3 +1,4 @@
+
 name: Delete Tags
 
 on:
@@ -29,11 +30,11 @@ jobs:
 
       - name: List and Delete Tags
         run: |
-          echo "Fetching tags starting with ${{ github.event.inputs.tag_type }}"
+          echo "Fetching tags ..."
           tags=$(git tag -l 'dev*' 'qa*' 'qa2*' 'tics*')
           
           if [ -z "$tags" ]; then
-            echo "No tags found starting with '${{ github.event.inputs.tag_type }}'"
+            echo "No tags found"
             exit 0
           fi
 
