@@ -1,4 +1,3 @@
-
 name: Delete Tags
 
 on:
@@ -31,7 +30,7 @@ jobs:
       - name: List and Delete Tags
         run: |
           echo "Fetching tags ..."
-          tags=$(git tag -l 'dev*' 'qa*' 'qa2*' 'tics*')
+          tags=$(git tag -l 'dev*' 'qa*' 'qa2*' 'tics*' 'test*' 'mi*' 'ddev*' 'stage*' 'pentest*')
           
           if [ -z "$tags" ]; then
             echo "No tags found"
@@ -40,6 +39,6 @@ jobs:
 
           for tag in $tags; do
             echo "Deleting tag $tag"
-            #git push --delete origin "$tag" || echo "Failed to delete remote tag $tag"
-            #git tag -d "$tag" || echo "Failed to delete local tag $tag"
+            git push --delete origin "$tag" || echo "Failed to delete remote tag $tag"
+            git tag -d "$tag" || echo "Failed to delete local tag $tag"
           done
