@@ -30,7 +30,7 @@ jobs:
       - name: List and Delete Tags
         run: |
           echo "Fetching tags ..."
-          tags=$(git tag -l 'dev*' 'qa*' 'qa2*' 'tics*' 'test*' 'mi*' 'ddev*' 'stage*' 'pentest*')
+          tags=$(git tag -l 'dev*' 'qa*' )
           
           if [ -z "$tags" ]; then
             echo "No tags found"
